@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 
 import edu.zhekadoe.tennisscoreboard.service.OngoingMatchesService;
-import edu.zhekadoe.tennisscoreboard.utils.PlayerName;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -13,18 +12,21 @@ import org.slf4j.LoggerFactory;
 
 @WebServlet("/new-match")
 public class NewMatchServlet extends HttpServlet {
+
     private static final Logger logger = LoggerFactory.getLogger(NewMatchServlet.class);
+    public final String PLAYER_NAME_PATTERN = "[A-Za-z]. [A-Za-z]+";
+    public final String PLAYER_NAME_EXAMPLE = "n. surname";
 
     public static final String PLAYER_NAME_ERROR_FORMAT_MESSAGE = "Error in %s name. Enter a name in the format %s";
     public static final String UNIQUE_PLAYERS_ERROR_FORMAT_MESSAGE = "%s cannot play by himself";
     public static final List<PlayersParam> PLAYERS_PARAM = List.of(
-            new PlayersParam ("playerOne", "Player one"),
-            new PlayersParam ("playerTwo", "Player two"));
+            new PlayersParam("playerOne", "Player one"),
+            new PlayersParam("playerTwo", "Player two"));
     private final OngoingMatchesService ongoingMatchesService = OngoingMatchesService.getInstance();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setAttribute("playerNamePattern", PlayerName.PATTERN.replace(".", "\\."));
-        request.setAttribute("playerNameExample", PlayerName.EXAMPLE);
+        request.setAttribute("playerNamePattern", PLAYER_NAME_PATTERN.replace(".", "\\."));
+        request.setAttribute("playerNameExample", PLAYER_NAME_EXAMPLE);
         request.setAttribute("players", PLAYERS_PARAM);
         request.getRequestDispatcher("/WEB-INF/jsp/new-match.jsp").forward(request, response);
     }
@@ -65,12 +67,12 @@ public class NewMatchServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         for (int i = 0; i < PLAYERS_PARAM.size(); i++) {
-            String name = playerNames.get(i);
             String label = PLAYERS_PARAM.get(i).label();
+            String name = playerNames.get(i);
 
-            if (isInvalidName(name)) {
+            if (name == null || !name.matches(PLAYER_NAME_PATTERN)) {
                 errors.add(PLAYER_NAME_ERROR_FORMAT_MESSAGE
-                        .formatted(label, PlayerName.EXAMPLE));
+                        .formatted(label, PLAYER_NAME_EXAMPLE));
                 continue;
             }
 
@@ -80,10 +82,6 @@ public class NewMatchServlet extends HttpServlet {
             }
         }
         return errors;
-    }
-
-    private boolean isInvalidName(String name) {
-        return name == null || name.isEmpty() || !name.matches(PlayerName.PATTERN);
     }
 
     public record PlayersParam(String name, String label) {
