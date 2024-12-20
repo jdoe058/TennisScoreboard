@@ -1,4 +1,4 @@
-package edu.zhekadoe.tennisscoreboard.servlets;
+package edu.zhekadoe.tennisscoreboard.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

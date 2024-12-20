@@ -17,13 +17,26 @@ ext {
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
 
+    implementation 'org.hibernate:hibernate-core:6.6.3.Final'
+    runtimeOnly 'com.h2database:h2:2.3.232'
+
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.36'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
