@@ -12,6 +12,9 @@ public class Match {
     @GeneratedValue
     private Long id;
 
+    @Transient
+    private Long totalMatches;
+
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Player playerOne;
 

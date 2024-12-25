@@ -5,7 +5,8 @@
   Time: 02:23
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -20,12 +21,12 @@
 </head>
 
 <body>
-<%@include file="header.jsp"%>
+<%@include file="header.jsp" %>
 <main>
     <div class="container">
         <h1>Matches</h1>
         <div class="input-container">
-            <input class="input-filter" placeholder="Filter by name" type="text" />
+            <input class="input-filter" placeholder="Filter by name" type="text"/>
             <div>
                 <a href="#">
                     <button class="btn-filter">Reset Filter</button>
@@ -39,31 +40,14 @@
                 <th>Player Two</th>
                 <th>Winner</th>
             </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Roger Federer</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Roger Federer</span></td>
-            </tr>
-            <tr>
-                <td>Rafael Nadal</td>
-                <td>Roger Federer</td>
-                <td><span class="winner-name-td">Rafael Nadal</span></td>
-            </tr>
+            <c:forEach var="match" items="${requestScope.matches}">
+                <tr>
+                    <td>${match.id} ${match.playerOne.name}</td>
+                    <td>${match.playerTwo.name}</td>
+                    <td><span class="winner-name-td">${match.winner.name}</span></td>
+                </tr>
+            </c:forEach>
+
         </table>
 
         <div class="pagination">
@@ -75,6 +59,6 @@
         </div>
     </div>
 </main>
-<%@include file="footer.jsp"%>
+<%@include file="footer.jsp" %>
 </body>
 </html>
