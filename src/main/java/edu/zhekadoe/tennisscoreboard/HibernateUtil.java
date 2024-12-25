@@ -1,7 +1,6 @@
 package edu.zhekadoe.tennisscoreboard;
 
 import lombok.Getter;
-import lombok.Value;
 import lombok.experimental.UtilityClass;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
