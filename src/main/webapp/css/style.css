@@ -424,6 +424,7 @@ footer {
 
 .form-matches {
     width: 100%;
+    display: flex;
 }
 
 .input-container {

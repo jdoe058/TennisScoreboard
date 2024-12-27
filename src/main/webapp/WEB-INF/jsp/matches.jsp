@@ -26,12 +26,21 @@
     <div class="container">
         <h1>Matches</h1>
         <div class="input-container">
-            <input class="input-filter" placeholder="Filter by name" type="text"/>
-            <div>
-                <a href="#">
-                    <button class="btn-filter">Reset Filter</button>
-                </a>
-            </div>
+            <form method="get" action="${pageContext.request.contextPath}/matches" class="form-matches">
+                <label>
+                    <input class="input-filter" name="filter" placeholder="Filter by name"
+                           type="text" value="${param.filter}"/>
+                </label>
+                <button class="btn-filter" type="submit">Search</button>
+
+                <%--<div>--%>
+                <%--</div>--%>
+
+            </form>
+            <a href="${pageContext.request.contextPath}/matches">
+                <button class="btn-filter">Reset Filter</button>
+            </a>
+
         </div>
 
         <table class="table-matches">
@@ -51,11 +60,25 @@
         </table>
 
         <div class="pagination">
-            <a class="prev" href="#"> < </a>
-            <a class="num-page current" href="#">1</a>
-            <a class="num-page" href="#">2</a>
-            <a class="num-page" href="#">3</a>
-            <a class="next" href="#"> > </a>
+            <c:if test="${requestScope.page > 1}">
+
+                <a class="prev" href="?page=${requestScope.page - 1}&filter=${param.filter}"> < </a>
+            </c:if>
+
+            <c:forEach var="i" begin="1" end="${requestScope.totalPages}">
+                <c:choose>
+                    <c:when test="${i == requestScope.page}">
+                        <span class="num-page current" href="">${i}</span>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="num-page" href="?page=${i}&filter=${param.filter}">${i}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${requestScope.page < requestScope.totalPages - 1}">
+                <a class="next" href="?page=${requestScope.page + 1}&filter=${param.filter}"> > </a>
+            </c:if>
         </div>
     </div>
 </main>
