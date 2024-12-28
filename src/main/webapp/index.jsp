@@ -25,7 +25,7 @@
                     Start a new match
                 </button>
             </a>
-            <a class="homepage-action-button" href="${pageContext.request.contextPath}/match-score">
+            <a class="homepage-action-button" href="${pageContext.request.contextPath}/matches">
                 <button class="btn view-results">
                     View match results
                 </button>

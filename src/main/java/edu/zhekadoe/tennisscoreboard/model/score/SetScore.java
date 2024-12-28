@@ -13,6 +13,10 @@ public class SetScore extends Score<Integer> {
         return 0;
     }
 
+    public GameScore<?> getCurrentGame() {
+        return currentGame;
+    }
+
     @Override
     public State pointWon(int playerNumber) {
         State state = currentGame.pointWon(playerNumber);

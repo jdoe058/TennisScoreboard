@@ -29,5 +29,5 @@ public abstract class Score<T> {
         playerScores.set(playerNumber == 0 ? 1 : 0, playerScore);
     }
 
-    abstract State pointWon(int playerNumber);
+    public abstract State pointWon(int playerNumber);
 }

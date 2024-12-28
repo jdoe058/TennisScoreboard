@@ -1,7 +1,15 @@
 package edu.zhekadoe.tennisscoreboard.model.score;
 
 public enum RegularGamePlayerPoints {
-    ZERO, FIFTEEN, THIRTY, FORTY, ADVANTAGE;
+    ZERO("00"),
+    FIFTEEN("15"),
+    THIRTY("30"),
+    FORTY("40"),
+    ADVANTAGE("AD");
+
+    RegularGamePlayerPoints(String title) {
+        this.title = title;
+    }
 
     public RegularGamePlayerPoints next() {
         if (this == ADVANTAGE) {
@@ -9,5 +17,10 @@ public enum RegularGamePlayerPoints {
         } else {
             return RegularGamePlayerPoints.values()[this.ordinal() + 1];
         }
+    }
+    private final String title;
+
+    public String getTitle() {
+        return title;
     }
 }
